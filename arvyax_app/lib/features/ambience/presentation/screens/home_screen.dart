@@ -74,7 +74,7 @@ class HomeScreen extends ConsumerWidget {
                     ),
                     selected: filter.selectedTag == null,
                     onSelected: (isSelected) {
-                      // Always clear filters when All is clicked, regardless of state
+                      
                       ref.read(filterProvider.notifier).updateTag(null);
                     },
                     backgroundColor: Theme.of(context).colorScheme.surface,

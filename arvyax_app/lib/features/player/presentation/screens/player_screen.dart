@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/providers/session_provider.dart';
 import '../../../../data/models/ambience.dart';
 import '../../../../data/models/session.dart';
+import '../../../journal/presentation/screens/journal_screen.dart';
 
 class PlayerScreen extends ConsumerStatefulWidget {
   final Ambience ambience;
@@ -20,15 +21,31 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
   @override
   void initState() {
     super.initState();
-    // Start session when screen opens
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(sessionProvider.notifier).startSession(widget.ambience);
     });
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final session = ref.watch(sessionProvider);
+
+    // Auto-navigate to JournalScreen when session ends
+    if (session != null && session.status == SessionStatus.ended) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const JournalScreen()),
+          );
+        }
+      });
+    }
 
     if (session == null) {
       return const Scaffold(
@@ -47,7 +64,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
       ),
       body: Column(
         children: [
-          // Image
+          
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -69,20 +86,16 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
               ),
             ),
           ),
-          // Player Controls
           Padding(
             padding: const EdgeInsets.all(28),
             child: Column(
               children: [
-                // Title
                 Text(
                   session.ambience.title,
                   style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
-
-                // Progress Bar
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: LinearProgressIndicator(
@@ -95,8 +108,6 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Time Display
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -113,8 +124,6 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   ],
                 ),
                 const SizedBox(height: 44),
-
-                // Play/Pause Button
                 FloatingActionButton.large(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   onPressed: () {
@@ -131,8 +140,6 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   ),
                 ),
                 const SizedBox(height: 44),
-
-                // End Session Button
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(

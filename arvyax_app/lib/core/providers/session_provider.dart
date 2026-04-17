@@ -2,11 +2,16 @@ import 'package:arvyax_app/data/models/ambience.dart';
 import 'package:arvyax_app/data/models/session.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'dart:async';
 
 class SessionNotifier extends StateNotifier<SessionModel?> {
   SessionNotifier() : super(null);
+  Timer? _timer;
 
   void startSession(Ambience ambience) {
+    // Cancel existing timer
+    _timer?.cancel();
+    
     state = SessionModel(
       id: DateTime.now().toString(),
       ambience: ambience,
@@ -17,6 +22,24 @@ class SessionNotifier extends StateNotifier<SessionModel?> {
       startedAt: DateTime.now(),
       completedAt: null,
     );
+    
+    // Start timer
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (state != null && state!.isPlaying) {
+        final newElapsed = state!.elapsedSeconds + 1;
+        state = state!.copyWith(elapsedSeconds: newElapsed);
+        
+        // Auto-complete when time is up
+        if (newElapsed >= state!.totalSeconds) {
+          _timer?.cancel();
+          endSession();
+        }
+      }
+    });
   }
 
   void pause() {
@@ -39,10 +62,18 @@ class SessionNotifier extends StateNotifier<SessionModel?> {
 
   void endSession() {
     if (state != null) {
+      _timer?.cancel();
       state = state!.copyWith(status: SessionStatus.ended, completedAt: DateTime.now());
     }
   }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 }
+
 
 final sessionProvider = StateNotifierProvider<SessionNotifier, SessionModel?>((ref) {
   return SessionNotifier();
