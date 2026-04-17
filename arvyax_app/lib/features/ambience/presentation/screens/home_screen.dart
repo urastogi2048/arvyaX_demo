@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/providers/ambience_providers.dart';
 import '../../../../core/providers/filter_provider.dart';
 import '../../../../data/models/ambience.dart';
+import 'details_screen.dart';
 
 const List<String> tagOptions = ['Focus', 'Calm', 'Sleep', 'Reset'];
 
@@ -161,7 +162,12 @@ class AmbienanceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // TODO: Navigate to details screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailsScreen(ambience: ambience),
+          ),
+        );
       },
       child: Card(
         child: Column(

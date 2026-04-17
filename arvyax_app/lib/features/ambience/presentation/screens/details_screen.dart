@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../data/models/ambience.dart';
+import '../../../player/presentation/screens/player_screen.dart';
 
 class DetailsScreen extends StatelessWidget {
   final Ambience ambience;
@@ -99,6 +100,13 @@ class DetailsScreen extends StatelessWidget {
                     width: double.infinity,
                     child: FilledButton(
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                PlayerScreen(ambience: ambience),
+                          ),
+                        );
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 12),

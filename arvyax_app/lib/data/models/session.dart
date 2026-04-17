@@ -1,45 +1,47 @@
 import 'package:arvyax_app/data/models/ambience.dart';
-enum SessionStatus {active, paused, completed, ended}
+
+enum SessionStatus { active, paused, completed, ended }
+
 class SessionModel {
   final String id;
   final Ambience ambience;
-  final int elapsedseconds;
-  final int totalseconds;
-  final bool isplaying;
+  final int elapsedSeconds;
+  final int totalSeconds;
+  final bool isPlaying;
   final SessionStatus status;
-  final DateTime startedat;
-  final DateTime? completedat;
-
+  final DateTime startedAt;
+  final DateTime? completedAt;
 
   SessionModel({
     required this.id,
     required this.ambience,
-    required this.elapsedseconds,
-    required this.totalseconds,
-    required this.isplaying,
+    required this.elapsedSeconds,
+    required this.totalSeconds,
+    required this.isPlaying,
     required this.status,
-    required this.startedat,
-    this.completedat,
+    required this.startedAt,
+    this.completedAt,
   });
-  SessionModel copyWith ({
+
+  SessionModel copyWith({
     String? id,
     Ambience? ambience,
-    int? elapsedseconds,
-    int? totalseconds,
-    bool? isplaying,
+    int? elapsedSeconds,
+    int? totalSeconds,
+    bool? isPlaying,
     SessionStatus? status,
-    DateTime? startedat,
-    DateTime? completedat,
+    DateTime? startedAt,
+    DateTime? completedAt,
   }) {
     return SessionModel(
       id: id ?? this.id,
       ambience: ambience ?? this.ambience,
-      elapsedseconds: elapsedseconds ?? this.elapsedseconds,
-      totalseconds: totalseconds ?? this.totalseconds,
-      isplaying: isplaying ?? this.isplaying,
+      elapsedSeconds: elapsedSeconds ?? this.elapsedSeconds,
+      totalSeconds: totalSeconds ?? this.totalSeconds,
+      isPlaying: isPlaying ?? this.isPlaying,
       status: status ?? this.status,
-      startedat: startedat ?? this.startedat,
-      completedat: completedat ?? this.completedat,
+      startedAt: startedAt ?? this.startedAt,
+      completedAt: completedAt ?? this.completedAt,
     );
   }
 }
