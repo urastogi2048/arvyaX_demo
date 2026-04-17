@@ -14,10 +14,11 @@ class FilterState {
   FilterState copyWith({
     String? searchText,
     String? selectedTag,
+    bool clearSelectedTag = false,
   }) {
     return FilterState(
       searchText: searchText ?? this.searchText,
-      selectedTag: selectedTag ?? this.selectedTag,
+      selectedTag: clearSelectedTag ? null : (selectedTag ?? this.selectedTag),
     );
   }
 }
@@ -29,7 +30,11 @@ class FilterNotifier extends StateNotifier<FilterState> {
   }
 
   void updateTag(String? tag) {
-    state = state.copyWith(selectedTag: tag);
+    if (tag == null) {
+      state = state.copyWith(clearSelectedTag: true);
+    } else {
+      state = state.copyWith(selectedTag: tag);
+    }
   }
 
   void clearFilters() {

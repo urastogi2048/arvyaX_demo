@@ -50,19 +50,28 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
           // Image
           Expanded(
             child: Container(
-              color: Theme.of(context).colorScheme.surfaceDim,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                    Theme.of(context).colorScheme.secondary.withOpacity(0.15),
+                  ],
+                ),
+              ),
               child: Center(
                 child: Icon(
                   Icons.image,
-                  size: 100,
-                  color: Theme.of(context).colorScheme.outline,
+                  size: 120,
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
                 ),
               ),
             ),
           ),
           // Player Controls
           Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(28),
             child: Column(
               children: [
                 // Title
@@ -71,14 +80,21 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 40),
 
                 // Progress Bar
-                LinearProgressIndicator(
-                  value: progress,
-                  minHeight: 4,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: LinearProgressIndicator(
+                    value: progress,
+                    minHeight: 6,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
 
                 // Time Display
                 Row(
@@ -86,7 +102,9 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   children: [
                     Text(
                       _formatTime(session.elapsedSeconds),
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                     Text(
                       _formatTime(session.totalSeconds),
@@ -94,10 +112,11 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 44),
 
                 // Play/Pause Button
                 FloatingActionButton.large(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   onPressed: () {
                     if (session.isPlaying) {
                       ref.read(sessionProvider.notifier).pause();
@@ -107,19 +126,21 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   },
                   child: Icon(
                     session.isPlaying ? Icons.pause : Icons.play_arrow,
-                    size: 32,
+                    size: 36,
+                    color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 44),
 
                 // End Session Button
                 SizedBox(
                   width: double.infinity,
-                  child: OutlinedButton(
+                  child: OutlinedButton.icon(
                     onPressed: () {
                       _showEndSessionDialog(context, ref);
                     },
-                    child: const Text('End Session'),
+                    icon: const Icon(Icons.stop_circle_outlined, size: 20),
+                    label: const Text('End Session'),
                   ),
                 ),
               ],
