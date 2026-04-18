@@ -14,7 +14,7 @@ class JournalScreen extends ConsumerStatefulWidget {
 
 class _JournalScreenState extends ConsumerState<JournalScreen> {
   final TextEditingController _reflectionController = TextEditingController();
-  String _selectedMood = '3'; // Default to neutral (3/5)
+  String _selectedMood = 'Calm'; // Default to Calm
 
   @override
   void dispose() {
@@ -60,18 +60,16 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
 
   String _getMoodEmoji(String mood) {
     switch (mood) {
-      case '1':
-        return '😔';
-      case '2':
-        return '😕';
-      case '3':
-        return '😐';
-      case '4':
-        return '🙂';
-      case '5':
-        return '😊';
+      case 'Calm':
+        return '🧘';
+      case 'Grounded':
+        return '🌿';
+      case 'Energized':
+        return '⚡';
+      case 'Sleepy':
+        return '😴';
       default:
-        return '😐';
+        return '🧘';
     }
   }
 
@@ -90,12 +88,12 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
             children: [
               // Header
               Text(
-                'How was your session?',
+                'What is gently present with you right now?',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               Text(
-                'Share your thoughts and feelings',
+                'Reflect on your experience',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
@@ -113,7 +111,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                 maxLines: 6,
                 minLines: 4,
                 decoration: InputDecoration(
-                  hintText: 'What did you experience? How do you feel?',
+                  hintText: 'Share your thoughts and feelings from this session...',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -141,37 +139,35 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                 ),
                 child: Column(
                   children: [
-                    // Mood slider with emoji
+                    // Mood buttons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: ['1', '2', '3', '4', '5']
+                      children: ['Calm', 'Grounded', 'Energized', 'Sleepy']
                           .map((mood) => GestureDetector(
                             onTap: () => setState(() => _selectedMood = mood),
                             child: Container(
-                              padding: const EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(6),
                               decoration: BoxDecoration(
                                 color: _selectedMood == mood
                                     ? Theme.of(context).colorScheme.primary.withOpacity(0.2)
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Text(
-                                _getMoodEmoji(mood),
-                                style: const TextStyle(fontSize: 32),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    _getMoodEmoji(mood),
+                                    style: const TextStyle(fontSize: 32),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    mood,
+                                    style: Theme.of(context).textTheme.labelSmall,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
                             ),
-                          ))
-                          .toList(),
-                    ),
-                    const SizedBox(height: 16),
-                    // Labels
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: ['Very Bad', 'Bad', 'Okay', 'Good', 'Great']
-                          .map((label) => Text(
-                            label,
-                            style: Theme.of(context).textTheme.labelSmall,
-                            textAlign: TextAlign.center,
                           ))
                           .toList(),
                     ),

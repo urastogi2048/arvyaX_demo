@@ -72,10 +72,12 @@ class HistoryScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 32),
                 FilledButton(
-                  onPressed: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  ),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    );
+                  },
                   child: const Text('Start a Session'),
                 ),
               ],
@@ -156,11 +158,12 @@ class HistoryScreen extends ConsumerWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton.icon(
-                      onPressed: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()),
-                      ),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomeScreen()),
+                        );
+                      },
                       icon: const Icon(Icons.home_outlined),
                       label: const Text('Back to Home'),
                     ),

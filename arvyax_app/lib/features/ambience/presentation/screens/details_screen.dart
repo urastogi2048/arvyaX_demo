@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../data/models/ambience.dart';
 import '../../../player/presentation/screens/player_screen.dart';
+import '../../../player/presentation/mini_player.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends ConsumerWidget {
   final Ambience ambience;
 
   const DetailsScreen({
@@ -11,31 +13,38 @@ class DetailsScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Hero Image with gradient overlay
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Hero Image with gradient overlay
             Container(
               height: 320,
               width: double.infinity,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Theme.of(context).colorScheme.primary.withOpacity(0.25),
-                    Theme.of(context).colorScheme.secondary.withOpacity(0.15),
-                  ],
+                image: DecorationImage(
+                  image: AssetImage(ambience.image),
+                  fit: BoxFit.cover,
+                  onError: (exception, stackTrace) {
+                    // Fallback if image not found
+                  },
                 ),
               ),
-              child: Center(
-                child: Icon(
-                  Icons.image,
-                  size: 100,
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withOpacity(0.3),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -180,8 +189,12 @@ class DetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        ),
+                ],
+              ),
+            ),
+          ),
+          const MiniPlayer(),
+        ],
       ),
     );
   }

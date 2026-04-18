@@ -2,14 +2,18 @@ import 'package:arvyax_app/data/models/ambience.dart';
 import 'package:arvyax_app/data/models/session.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:just_audio/just_audio.dart';
 import 'dart:async';
 
 class SessionNotifier extends StateNotifier<SessionModel?> {
-  SessionNotifier() : super(null);
   Timer? _timer;
+  late AudioPlayer _audioPlayer;
+
+  SessionNotifier() : super(null) {
+    _audioPlayer = AudioPlayer();
+  }
 
   void startSession(Ambience ambience) {
-    // Cancel existing timer
     _timer?.cancel();
     
     state = SessionModel(
@@ -23,8 +27,18 @@ class SessionNotifier extends StateNotifier<SessionModel?> {
       completedAt: null,
     );
     
-    // Start timer
+    _startAudio(ambience);
     _startTimer();
+  }
+
+  Future<void> _startAudio(Ambience ambience) async {
+    try {
+      await _audioPlayer.setAsset(ambience.audio);
+      await _audioPlayer.setLoopMode(LoopMode.all);
+      await _audioPlayer.play();
+    } catch (e) {
+      print('Error loading audio: $e');
+    }
   }
 
   void _startTimer() {
@@ -33,7 +47,6 @@ class SessionNotifier extends StateNotifier<SessionModel?> {
         final newElapsed = state!.elapsedSeconds + 1;
         state = state!.copyWith(elapsedSeconds: newElapsed);
         
-        // Auto-complete when time is up
         if (newElapsed >= state!.totalSeconds) {
           _timer?.cancel();
           endSession();
@@ -44,12 +57,14 @@ class SessionNotifier extends StateNotifier<SessionModel?> {
 
   void pause() {
     if (state != null) {
+      _audioPlayer.pause();
       state = state!.copyWith(isPlaying: false, status: SessionStatus.paused);
     }
   }
 
   void resume() {
     if (state != null) {
+      _audioPlayer.play();
       state = state!.copyWith(isPlaying: true, status: SessionStatus.active);
     }
   }
@@ -63,6 +78,7 @@ class SessionNotifier extends StateNotifier<SessionModel?> {
   void endSession() {
     if (state != null) {
       _timer?.cancel();
+      _audioPlayer.stop();
       state = state!.copyWith(status: SessionStatus.ended, completedAt: DateTime.now());
     }
   }
@@ -70,6 +86,7 @@ class SessionNotifier extends StateNotifier<SessionModel?> {
   @override
   void dispose() {
     _timer?.cancel();
+    _audioPlayer.dispose();
     super.dispose();
   }
 }
