@@ -1,0 +1,62 @@
+[
+  {
+    "id": "forest_focus",
+    "title": "Forest Focus",
+    "tag": "Focus",
+    "duration": 180,
+    "description": "Deep woods with gentle birdsong. Perfect for deep work and concentration.",
+    "image": "assets/images/forest_focus.jpg",
+    "audio": "assets/audio/forest_focus.mp3",
+    "sensoryTags": ["Breeze", "Birdsong", "Mist", "Warm Light"]
+  },
+  {
+    "id": "ocean_calm",
+    "title": "Ocean Calm",
+    "tag": "Calm",
+    "duration": 180,
+    "description": "Soft waves lapping on a quiet shore. Drift into tranquility.",
+    "image": "assets/images/ocean_calm.jpg",
+    "audio": "assets/audio/ocean_calm.mp3",
+    "sensoryTags": ["Soft Rain", "Breeze", "Sand", "Horizon"]
+  },
+  {
+    "id": "rain_sleep",
+    "title": "Rainy Night",
+    "tag": "Sleep",
+    "duration": 180,
+    "description": "Gentle rain on a cozy evening. Rest and let go.",
+    "image": "assets/images/rainy_night.jpg",
+    "audio": "assets/audio/rainy_night.mp3",
+    "sensoryTags": ["Soft Rain", "Thunder", "Cozy", "Darkness"]
+  },
+  {
+    "id": "mountain_reset",
+    "title": "Mountain Reset",
+    "tag": "Reset",
+    "duration": 120,
+    "description": "High altitude serenity. Clear your mind with fresh air.",
+    "image": "assets/images/mountain_reset.jpg",
+    "audio": "assets/audio/mountain_reset.mp3",
+    "sensoryTags": ["Wind", "Silence", "Echo", "Clarity"]
+  },
+  {
+    "id": "garden_focus",
+    "title": "Garden Focus",
+    "tag": "Focus",
+    "duration": 150,
+    "description": "Blooming garden with soft ambience. Steady and grounded.",
+    "image": "assets/images/garden_focus.jpg",
+    "audio": "assets/audio/garden_focus.mp3",
+    "sensoryTags": ["Breeze", "Birdsong", "Flowers", "Warm Light"]
+  },
+  {
+    "id": "meditation_calm",
+    "title": "Meditation Bells",
+    "tag": "Calm",
+    "duration": 120,
+    "description": "Tibetan singing bowls with silence. Pure presence.",
+    "image": "assets/images/meditation_bells.jpg",
+    "audio": "assets/audio/meditation_bells.mp3",
+    "sensoryTags": ["Bells", "Silence", "Resonance", "Binaural"]
+  }
+]
