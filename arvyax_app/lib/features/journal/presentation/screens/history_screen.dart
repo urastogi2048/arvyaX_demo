@@ -2,42 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/providers/journal_provider.dart';
-import '../../../../features/ambience/presentation/screens/home_screen.dart';
 
 class HistoryScreen extends ConsumerWidget {
   const HistoryScreen({super.key});
 
   String _getMoodEmoji(String mood) {
     switch (mood) {
-      case '1':
-        return '😔';
-      case '2':
-        return '😕';
-      case '3':
-        return '😐';
-      case '4':
-        return '🙂';
-      case '5':
-        return '😊';
+      case 'Calm':
+        return '🧘';
+      case 'Grounded':
+        return '🌿';
+      case 'Energized':
+        return '⚡';
+      case 'Sleepy':
+        return '😴';
       default:
-        return '😐';
+        return '🧘';
     }
   }
 
   String _getMoodLabel(String mood) {
     switch (mood) {
-      case '1':
-        return 'Very Bad';
-      case '2':
-        return 'Bad';
-      case '3':
-        return 'Okay';
-      case '4':
-        return 'Good';
-      case '5':
-        return 'Great';
+      case 'Calm':
+        return 'Calm';
+      case 'Grounded':
+        return 'Grounded';
+      case 'Energized':
+        return 'Energized';
+      case 'Sleepy':
+        return 'Sleepy';
       default:
-        return 'Neutral';
+        return 'Unknown';
     }
   }
 
@@ -73,10 +68,7 @@ class HistoryScreen extends ConsumerWidget {
                 const SizedBox(height: 32),
                 FilledButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
-                    );
+                    Navigator.pop(context);
                   },
                   child: const Text('Start a Session'),
                 ),
@@ -89,7 +81,6 @@ class HistoryScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   ...entries.asMap().entries.map((entry) {
-                    final index = entry.key;
                     final journalEntry = entry.value;
                     final dateFormat = DateFormat('MMM dd, yyyy • HH:mm');
                     
@@ -159,10 +150,7 @@ class HistoryScreen extends ConsumerWidget {
                     width: double.infinity,
                     child: OutlinedButton.icon(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HomeScreen()),
-                        );
+                        Navigator.pop(context);
                       },
                       icon: const Icon(Icons.home_outlined),
                       label: const Text('Back to Home'),

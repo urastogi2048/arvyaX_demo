@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/providers/session_provider.dart';
 import '../../../../data/models/ambience.dart';
 import '../../../../data/models/session.dart';
@@ -122,11 +123,11 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
           // Content overlay
           Column(
             children: [
-              const SizedBox(height: 80), // Space for AppBar
+              SizedBox(height: 80.h),
               Expanded(
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(28),
+                    padding: EdgeInsets.all(28.w),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -138,19 +139,19 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 40),
+                        SizedBox(height: 40.h),
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8.r),
                           child: LinearProgressIndicator(
                             value: progress,
-                            minHeight: 6,
+                            minHeight: 6.h,
                             backgroundColor: Colors.white30,
                             valueColor: AlwaysStoppedAnimation<Color>(
                               Theme.of(context).colorScheme.primary,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -169,7 +170,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 44),
+                        SizedBox(height: 44.h),
                         FloatingActionButton.large(
                           backgroundColor: Theme.of(context).colorScheme.primary,
                           onPressed: () {
@@ -181,11 +182,11 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                           },
                           child: Icon(
                             session.isPlaying ? Icons.pause : Icons.play_arrow,
-                            size: 36,
+                            size: 36.sp,
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 44),
+                        SizedBox(height: 44.h),
                         SizedBox(
                           width: double.infinity,
                           child: OutlinedButton.icon(
@@ -195,7 +196,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: Colors.white),
                             ),
-                            icon: const Icon(Icons.stop_circle_outlined, size: 20, color: Colors.white),
+                            icon: Icon(Icons.stop_circle_outlined, size: 20.sp, color: Colors.white),
                             label: const Text(
                               'End Session',
                               style: TextStyle(color: Colors.white),

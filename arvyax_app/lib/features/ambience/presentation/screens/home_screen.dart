@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/providers/ambience_providers.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/providers/filter_provider.dart';
 import '../../../../data/models/ambience.dart';
 import 'details_screen.dart';
@@ -21,8 +21,8 @@ class HomeScreen extends ConsumerWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/logo.png", width: 30,height: 30),
-            SizedBox(width : 10),
+            Image.asset("assets/images/logo.png", width: 30.w, height: 30.h),
+            SizedBox(width: 10.w),
             const Text('ArvyaX'),
           ],
         ),
@@ -36,13 +36,13 @@ class HomeScreen extends ConsumerWidget {
                 children: [
                   // Search Bar
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
+                    padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 16.h),
                     child: SearchAnchor(
                       builder: (BuildContext context, SearchController controller) {
                         return SearchBar(
                           controller: controller,
-                          padding: const MaterialStatePropertyAll<EdgeInsets>(
-                            EdgeInsets.symmetric(horizontal: 16),
+                          padding: MaterialStatePropertyAll<EdgeInsets>(
+                            EdgeInsets.symmetric(horizontal: 16.w),
                           ),
                           onChanged: (value) {
                             ref.read(filterProvider.notifier).updateSearch(value);

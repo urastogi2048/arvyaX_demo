@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../data/models/ambience.dart';
 import '../../../player/presentation/screens/player_screen.dart';
 import '../../../player/presentation/mini_player.dart';
@@ -24,7 +25,7 @@ class DetailsScreen extends ConsumerWidget {
                 children: [
                   // Hero Image with gradient overlay
             Container(
-              height: 320,
+              height: 320.h,
               width: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(

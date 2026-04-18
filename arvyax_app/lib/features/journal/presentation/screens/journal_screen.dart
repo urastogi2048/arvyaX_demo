@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/providers/journal_provider.dart';
 import '../../../../core/providers/session_provider.dart';
 import '../../../../data/models/journal_entry.dart';
@@ -82,7 +83,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(24.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -91,7 +92,7 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                 'What is gently present with you right now?',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Text(
                 'Reflect on your experience',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(

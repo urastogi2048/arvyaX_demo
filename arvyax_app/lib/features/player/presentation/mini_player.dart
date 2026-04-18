@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/providers/session_provider.dart';
 import '../../../data/models/session.dart';
 import 'screens/player_screen.dart';
@@ -34,28 +35,28 @@ class MiniPlayer extends ConsumerWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
-              blurRadius: 8,
-              offset: const Offset(0, -2),
+              blurRadius: 8.r,
+              offset: Offset(0, -2.h),
             ),
           ],
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             // Progress bar
             ClipRRect(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(4.r),
               child: LinearProgressIndicator(
                 value: progress,
-                minHeight: 3,
+                minHeight: 3.h,
                 backgroundColor: Colors.white24,
                 valueColor: AlwaysStoppedAnimation<Color>(
                   Colors.white.withOpacity(0.8),
                 ),
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             // Content row
             Row(
               children: [
@@ -72,7 +73,7 @@ class MiniPlayer extends ConsumerWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Text(
                         '${session.elapsedSeconds ~/ 60}:${(session.elapsedSeconds % 60).toString().padLeft(2, '0')} / ${session.totalSeconds ~/ 60}:00',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -82,7 +83,7 @@ class MiniPlayer extends ConsumerWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
                 // Play/Pause button
                 Container(
                   decoration: BoxDecoration(
@@ -93,7 +94,7 @@ class MiniPlayer extends ConsumerWidget {
                     icon: Icon(
                       session.isPlaying ? Icons.pause : Icons.play_arrow,
                       color: Colors.white,
-                      size: 20,
+                      size: 20.sp,
                     ),
                     onPressed: () {
                       if (session.isPlaying) {
